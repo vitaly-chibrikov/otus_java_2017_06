@@ -22,10 +22,10 @@ public class EmailsReader implements Supplier<List<String>> {
     @Override
     public List<String> get() {
         try {
-        System.out.println("Reading emails from: " + pathToFile);
+            System.out.println(TextColors.ANSI_RESET + "Reading emails from: " + pathToFile);
 
-        CSVReader reader = new CSVReader(new FileReader(pathToFile));
-        return reader.readAll().stream().map(line -> line[0].trim()).collect(Collectors.toList());
+            CSVReader reader = new CSVReader(new FileReader(pathToFile));
+            return reader.readAll().stream().map(line -> line[0].trim()).collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
             return null;
