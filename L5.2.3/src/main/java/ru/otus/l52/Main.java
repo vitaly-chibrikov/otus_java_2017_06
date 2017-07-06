@@ -10,10 +10,9 @@ public class Main {
     @AddLog(message = "Main method")
     public static void main(String... args) throws InterruptedException {
         new Main().pid();
-        new Main().pid();
     }
 
-    @AddLog(message = "Test 24-34")
+    @AddLog(message = "pid requested")
     private void pid() {
         System.out.println("Starting pid: " + ManagementFactory.getRuntimeMXBean().getName());
     }

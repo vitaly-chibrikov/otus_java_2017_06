@@ -10,8 +10,9 @@ public class ReflectionHelperTest {
     @SuppressWarnings("ConstantConditions")
     @Test
     public void instantiate() {
+        TestClass testClass = ReflectionHelper.instantiate(TestClass.class);
+        Assert.assertEquals(0, testClass.getA());
 
-        Assert.assertEquals(0, ReflectionHelper.instantiate(TestClass.class).getA());
         Assert.assertEquals(1, ReflectionHelper.instantiate(TestClass.class, 1).getA());
         Assert.assertEquals("A", ReflectionHelper.instantiate(TestClass.class, 1, "A").getS());
     }

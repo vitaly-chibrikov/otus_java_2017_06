@@ -15,7 +15,7 @@ public class TestClass {
         this.a = a;
     }
 
-    public TestClass(Integer a, String s) {
+    public TestClass(int a, String s) {
         this.a = a;
         this.s = s;
     }

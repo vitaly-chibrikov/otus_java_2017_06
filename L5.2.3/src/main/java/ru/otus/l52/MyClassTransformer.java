@@ -36,7 +36,7 @@ public class MyClassTransformer implements ClassFileTransformer {
             for (CtMethod currentMethod : cclass.getDeclaredMethods()) {
                 AddLog annotation = (AddLog) currentMethod.getAnnotation(AddLog.class);
                 if (annotation != null) {
-                    currentMethod.insertBefore("{throw new Exception(\"" + annotation.message() + "\");}");
+                    currentMethod.insertBefore("{System.out.println(\"" + annotation.message() + "\");}");
                 }
             }
 
