@@ -2,7 +2,7 @@ package ru.otus.l71.creational.bilder;
 
 /**
  * Created by tully.
- *
+ * <p>
  * Product in the Builder pattern.
  */
 public class BookInfo {

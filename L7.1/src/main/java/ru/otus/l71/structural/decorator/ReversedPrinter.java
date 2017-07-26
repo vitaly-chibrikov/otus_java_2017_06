@@ -14,15 +14,6 @@ public class ReversedPrinter extends PrinterDecorator {
         super(printer);
     }
 
-    @Override
-    public void print(String str) {
-        List<Character> list = string2CharList(str);
-        Collections.reverse(list);
-        String result = list2String(list);
-
-        super.print(result);
-    }
-
     private static List<Character> string2CharList(String str) {
         char[] chars = str.toCharArray();
         List<Character> reversed = new ArrayList<>();
@@ -32,12 +23,20 @@ public class ReversedPrinter extends PrinterDecorator {
         return reversed;
     }
 
-
     private static String list2String(List<Character> reversed) {
         StringBuilder builder = new StringBuilder();
         for (char character : reversed) {
             builder.append(character);
         }
         return builder.toString();
+    }
+
+    @Override
+    public void print(String str) {
+        List<Character> list = string2CharList(str);
+        Collections.reverse(list);
+        String result = list2String(list);
+
+        super.print(result);
     }
 }

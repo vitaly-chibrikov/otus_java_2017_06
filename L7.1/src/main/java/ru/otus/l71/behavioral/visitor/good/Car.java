@@ -1,4 +1,8 @@
-package ru.otus.l71.behavioral.visitor;
+package ru.otus.l71.behavioral.visitor.good;
+
+import ru.otus.l71.behavioral.visitor.good.elements.Body;
+import ru.otus.l71.behavioral.visitor.good.elements.Engine;
+import ru.otus.l71.behavioral.visitor.good.elements.Wheel;
 
 import java.util.Arrays;
 

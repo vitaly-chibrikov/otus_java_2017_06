@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * Created by tully.
- *
+ * <p>
  * Mediator in the Mediator pattern.
  */
 public class AirportControl {

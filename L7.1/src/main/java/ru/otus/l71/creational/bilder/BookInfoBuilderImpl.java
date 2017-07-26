@@ -2,10 +2,10 @@ package ru.otus.l71.creational.bilder;
 
 /**
  * Created by tully.
- *
+ * <p>
  * Builder in the Builder pattern.
  */
-public class BookInfoBuilderImpl implements BookInfoBuilder{
+public class BookInfoBuilderImpl implements BookInfoBuilder {
     private final int defaultEdition = 0;
     private final int defaultIndex = 1;
 

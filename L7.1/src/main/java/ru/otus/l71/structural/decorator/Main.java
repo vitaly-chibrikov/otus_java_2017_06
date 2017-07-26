@@ -11,14 +11,11 @@ public class Main {
         Printer decorator = new PrinterDecorator(normalPrinter);
         decorator.print("Decorator");
 
-
         Printer reversedPrinter = new ReversedPrinter(normalPrinter);
-
-
-        Printer doubleReversedPrinter = new ReversedPrinter(reversedPrinter);
+        Printer upperCasePrinter = new UpperCasePrinter(reversedPrinter);
 
         normalPrinter.print("Optional wrapper in the Decorator pattern.");
         reversedPrinter.print("Optional wrapper in the Decorator pattern.");
-        doubleReversedPrinter.print("Optional wrapper in the Decorator pattern.");
+        upperCasePrinter.print("Optional wrapper in the Decorator pattern.");
     }
 }

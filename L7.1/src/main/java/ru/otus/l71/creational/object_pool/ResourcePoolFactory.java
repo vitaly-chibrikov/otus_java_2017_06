@@ -13,7 +13,7 @@ public class ResourcePoolFactory implements ResourceFactory {
     public Resource get() {
         if (pool.isEmpty()) {
             return new PoolResource();
-        }else {
+        } else {
             return pool.poll();
         }
     }

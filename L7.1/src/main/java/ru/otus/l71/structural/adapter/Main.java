@@ -2,7 +2,7 @@ package ru.otus.l71.structural.adapter;
 
 /**
  * Created by tully.
- *
+ * <p>
  * Client in the Adapter pattern.
  */
 public class Main {

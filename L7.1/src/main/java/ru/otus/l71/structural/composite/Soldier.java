@@ -2,7 +2,7 @@ package ru.otus.l71.structural.composite;
 
 /**
  * Created by tully.
- *
+ * <p>
  * Leaf in the Composite pattern.
  */
 public class Soldier implements Unit {

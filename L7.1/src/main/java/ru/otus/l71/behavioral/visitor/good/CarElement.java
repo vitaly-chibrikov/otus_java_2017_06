@@ -1,4 +1,4 @@
-package ru.otus.l71.behavioral.visitor;
+package ru.otus.l71.behavioral.visitor.good;
 
 /**
  * Created by tully.

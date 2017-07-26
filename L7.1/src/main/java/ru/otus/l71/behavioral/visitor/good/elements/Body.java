@@ -1,4 +1,7 @@
-package ru.otus.l71.behavioral.visitor;
+package ru.otus.l71.behavioral.visitor.good.elements;
+
+import ru.otus.l71.behavioral.visitor.good.CarElement;
+import ru.otus.l71.behavioral.visitor.good.Service;
 
 /**
  * Created by tully.

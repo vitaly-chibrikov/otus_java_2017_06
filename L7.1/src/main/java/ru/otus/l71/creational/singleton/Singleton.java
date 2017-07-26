@@ -2,7 +2,7 @@ package ru.otus.l71.creational.singleton;
 
 /**
  * Created by tully.
- *
+ * <p>
  * Singleton pattern
  */
 public class Singleton {

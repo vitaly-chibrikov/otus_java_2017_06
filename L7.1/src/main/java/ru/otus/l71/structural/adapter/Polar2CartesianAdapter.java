@@ -2,7 +2,7 @@ package ru.otus.l71.structural.adapter;
 
 /**
  * Created by tully.
- *
+ * <p>
  * Polar coordinated to Cartesian coordinated adapter.
  */
 public class Polar2CartesianAdapter implements Polar {
