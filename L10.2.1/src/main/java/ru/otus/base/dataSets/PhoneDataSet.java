@@ -13,7 +13,6 @@ public class PhoneDataSet extends DataSet {
     private String number;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "userid") //default is user_id
     private UserDataSet user;
 
     public PhoneDataSet() {

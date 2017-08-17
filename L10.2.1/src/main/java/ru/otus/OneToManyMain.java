@@ -6,10 +6,12 @@ import ru.otus.base.dataSets.PhoneDataSet;
 import ru.otus.base.dataSets.UserDataSet;
 import ru.otus.dbService.DBServiceImpl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
-public class Main {
+public class OneToManyMain {
     public static void main(String[] args) {
         DBService dbService = new DBServiceImpl();
 
@@ -18,14 +20,28 @@ public class Main {
 
         UserDataSet user1 = new UserDataSet(
                 "tully",
-                new AddressDataSet("Mira"),
+                Collections.singletonList(new AddressDataSet("Mira")),
                 new PhoneDataSet("+1 234 567 8018"),
-                new PhoneDataSet("+7 987 645 4545"));
+                new PhoneDataSet("+7 987 645 4545")
+        );
 
         System.out.println(user1);
 
         dbService.save(user1);
-        dbService.save(new UserDataSet("sully", new AddressDataSet("Truda"), new PhoneDataSet("+67 890 344 4422")));
+
+        List<AddressDataSet> addresses = new ArrayList<>();
+        addresses.add(new AddressDataSet("Truda"));
+        addresses.add(new AddressDataSet("Moskovskaya"));
+
+        UserDataSet user2 = new UserDataSet(
+                "sully",
+                addresses,
+                new PhoneDataSet("+67 890 344 4422")
+        );
+
+        dbService.save(user2);
+
+        System.out.println("____________________________");
 
         UserDataSet dataSet = dbService.read(1);
         System.out.println(dataSet);

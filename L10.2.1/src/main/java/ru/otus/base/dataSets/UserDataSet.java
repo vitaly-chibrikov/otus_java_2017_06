@@ -12,13 +12,19 @@ public class UserDataSet extends DataSet {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private AddressDataSet address;
+    /**
+     * OneToMany unidirectional example
+     */
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false)
+    private List<AddressDataSet> addresses = new ArrayList<>();
 
+    /**
+     * OneToMany bidirectional example
+     */
     @OneToMany(
             mappedBy = "user",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+            cascade = CascadeType.ALL
     )
     private List<PhoneDataSet> phones = new ArrayList<>();
 
@@ -26,17 +32,17 @@ public class UserDataSet extends DataSet {
     public UserDataSet() {
     }
 
-    public UserDataSet(long id, String name, AddressDataSet address, PhoneDataSet... phones) {
+    public UserDataSet(long id, String name, List<AddressDataSet> addresses, PhoneDataSet... phones) {
         this.setId(id);
         this.setName(name);
-        this.setAddress(address);
+        this.addresses.addAll(addresses);
         List<PhoneDataSet> userPhones = Arrays.asList(phones);
         this.setPhones(userPhones);
         userPhones.forEach(phone -> phone.setUser(this));
     }
 
-    public UserDataSet(String name, AddressDataSet address, PhoneDataSet... phones) {
-        this(-1, name, address, phones);
+    public UserDataSet(String name, List<AddressDataSet> addresses, PhoneDataSet... phones) {
+        this(-1, name, addresses, phones);
     }
 
     public String getName() {
@@ -47,12 +53,8 @@ public class UserDataSet extends DataSet {
         this.name = name;
     }
 
-    public AddressDataSet getAddress() {
-        return address;
-    }
-
-    public void setAddress(AddressDataSet address) {
-        this.address = address;
+    public List<AddressDataSet> getAddresses() {
+        return addresses;
     }
 
     public List<PhoneDataSet> getPhones() {
@@ -66,10 +68,9 @@ public class UserDataSet extends DataSet {
     @Override
     public String toString() {
         return "UserDataSet{" +
-                "id='" + getId() + '\'' +
-                "name='" + getName() + '\'' +
-                ", address=" + getAddress() +
-                ", phones=" + getPhones() +
+                "name='" + name + '\'' +
+                ", addresses=" + addresses +
+                ", phones=" + phones +
                 '}';
     }
 }
