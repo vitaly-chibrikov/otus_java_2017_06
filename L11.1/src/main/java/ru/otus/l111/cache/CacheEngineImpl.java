@@ -4,13 +4,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.*;
 import java.util.function.Function;
 
 /**
  * Created by tully.
  */
 public class CacheEngineImpl<K, V> implements CacheEngine<K, V> {
-    private static final int TIME_THRESHOLD_MS = 1;
+    private static final int TIME_THRESHOLD_MS = 5;
 
     private final int maxElements;
     private final long lifeTimeMs;
@@ -45,8 +46,8 @@ public class CacheEngineImpl<K, V> implements CacheEngine<K, V> {
                 timer.schedule(lifeTimerTask, lifeTimeMs);
             }
             if (idleTimeMs != 0) {
-                TimerTask idleTimerTask = getTimerTask(key, idleElement -> idleElement.getCreationTime() + idleTimeMs);
-                timer.schedule(idleTimerTask, idleTimeMs);
+                TimerTask idleTimerTask = getTimerTask(key, idleElement -> idleElement.getLastAccessTime() + idleTimeMs);
+                timer.schedule(idleTimerTask, idleTimeMs, idleTimeMs);
             }
         }
     }
@@ -79,10 +80,10 @@ public class CacheEngineImpl<K, V> implements CacheEngine<K, V> {
         return new TimerTask() {
             @Override
             public void run() {
-                MyElement<K, V> checkedElement = elements.get(key);
-                if (checkedElement == null ||
-                        isT1BeforeT2(timeFunction.apply(checkedElement), System.currentTimeMillis())) {
+                MyElement<K, V> element = elements.get(key);
+                if (element == null || isT1BeforeT2(timeFunction.apply(element), System.currentTimeMillis())) {
                     elements.remove(key);
+                    this.cancel();
                 }
             }
         };
