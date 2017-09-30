@@ -49,9 +49,10 @@ public class MirrorSocketMsgServer implements MirrorSocketMsgServerMBean {
         while (true) {
             for (MsgClient client : clients) {
                 Msg msg = client.pool();
-                if (msg != null) {
+                while (msg != null) {
                     System.out.println("Mirroring the message: " + msg.toString());
                     client.send(msg);
+                    msg = client.pool();
                 }
             }
             Thread.sleep(MIRROR_DELAY);

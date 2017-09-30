@@ -34,11 +34,11 @@ public class ProcessRunnerImpl implements ProcessRunner {
         pb.redirectErrorStream(true);
         Process p = pb.start();
 
-        StreamListener errors = new StreamListener(p.getErrorStream(), "ERROR");
+        //StreamListener errors = new StreamListener(p.getErrorStream(), "ERROR");
         StreamListener output = new StreamListener(p.getInputStream(), "OUTPUT");
 
         output.start();
-        errors.start();
+        //errors.start();
         return p;
     }
 
