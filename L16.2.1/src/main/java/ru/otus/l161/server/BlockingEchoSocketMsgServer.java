@@ -24,11 +24,11 @@ public class BlockingEchoSocketMsgServer {
     private static final int ECHO_DELAY = 100;
 
     private final ExecutorService executor;
-    private final List<MsgClient> channels;
+    private final List<MsgClient> clients;
 
     public BlockingEchoSocketMsgServer() {
         executor = Executors.newFixedThreadPool(THREADS_NUMBER);
-        channels = new CopyOnWriteArrayList<>();
+        clients = new CopyOnWriteArrayList<>();
     }
 
     public void start() throws Exception {
@@ -37,11 +37,11 @@ public class BlockingEchoSocketMsgServer {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             logger.info("Server started on port: " + serverSocket.getLocalPort());
             while (!executor.isShutdown()) {
-                Socket client = serverSocket.accept(); //blocks
-                SocketMsgClient channel = new SocketMsgClient(client);
-                channel.init();
-                channel.addShutdownRegistration(() -> channels.remove(channel));
-                channels.add(channel);
+                Socket socket = serverSocket.accept(); //blocks
+                SocketMsgClient client = new SocketMsgClient(socket);
+                client.init();
+                client.addShutdownRegistration(() -> clients.remove(client));
+                clients.add(client);
             }
         }
     }
@@ -49,11 +49,12 @@ public class BlockingEchoSocketMsgServer {
     @SuppressWarnings("InfiniteLoopStatement")
     private void echo() {
         while (true) {
-            for (MsgClient channel : channels) {
-                Msg msg = channel.pool(); //get
-                if (msg != null) {
+            for (MsgClient client : clients) {
+                Msg msg = client.pool(); //get
+                while (msg != null) {
                     System.out.println("Echoing the message: " + msg.toString());
-                    channel.send(msg);
+                    client.send(msg);
+                    msg = client.pool();
                 }
             }
             try {
